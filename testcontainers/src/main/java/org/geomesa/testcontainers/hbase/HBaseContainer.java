@@ -34,7 +34,7 @@ public class HBaseContainer
       extends GenericContainer<HBaseContainer> {
 
     static final DockerImageName DEFAULT_IMAGE =
-            DockerImageName.parse("ghcr.io/geomesa/hbase-docker").withTag("2.6.2");
+            DockerImageName.parse("ghcr.io/geomesa/hbase-docker").withTag("2.6.2-jdk17");
 
     private static final Logger logger = LoggerFactory.getLogger(HBaseContainer.class);
 

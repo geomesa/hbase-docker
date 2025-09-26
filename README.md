@@ -6,12 +6,12 @@ Note that the container is meant for quick tests, and data may be corrupted or l
 
 ## Quick Start - Docker
 
-    docker pull ghcr.io/geomesa/hbase-docker:2.6.2
+    docker pull ghcr.io/geomesa/hbase-docker:2.6.3
     docker run --rm \
       --name hbase \
       -p 16000:16000 -p 16020:16020 -p 8020:8020 -p 2181:2181 \
       --hostname $(hostname -s) \
-      ghcr.io/geomesa/hbase-docker:2.6.2
+      ghcr.io/geomesa/hbase-docker:2.6.3
 
 Note that the `hostname` must be set to the hostname of the host in order for HBase's networking to work.
 
@@ -31,7 +31,7 @@ JAR is available from [GeoMesa](https://github.com/locationtech/geomesa/releases
       -p 16000:16000 -p 16020:16020 -p 8020:8020 -p 2181:2181 \
       --hostname $(hostname -s) \
       -v "$(pwd)"/geomesa-hbase_2.12-5.3.0/dist/hbase/geomesa-hbase-distributed-runtime-hbase2_2.12-5.3.0.jar:/opt/hbase/lib/geomesa-hbase-distributed-runtime.jar \
-      ghcr.io/geomesa/hbase-docker:2.6.2
+      ghcr.io/geomesa/hbase-docker:2.6.3
 
 ## Quick Start - Testcontainers
 
@@ -91,6 +91,17 @@ The following environment variables are supported to override the ports used by 
 
 ## Tags and Versions
 
-### Tag `2.6`, `2.6.2`
+### Tag `2.6.3`, `2.6.3-jdk17`
+
+* HBase 2.6.3
+* Java 17
+
+### Tag `2.6.3-jdk11`
+
+* HBase 2.6.3
+* Java 11
+
+### Tag `2.6.2`
 
 * HBase 2.6.2
+* Java 11
