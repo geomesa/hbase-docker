@@ -8,7 +8,6 @@
 
 package org.geomesa.testcontainers.hbase;
 
-import org.geomesa.testcontainers.AccumuloContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.BindMode;
