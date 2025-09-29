@@ -10,7 +10,7 @@
     <groupId>org.geomesa.testcontainers</groupId>
     <artifactId>testcontainers-hbase</artifactId>
     <packaging>jar</packaging>
-    <version>1.1.0</version>
+    <version>1.1.1-SNAPSHOT</version>
 
     <licenses>
         <license>
@@ -298,7 +298,7 @@
         <connection>scm:git:git@github.com:geomesa/hbase-docker.git</connection>
         <developerConnection>scm:git:git@github.com:geomesa/hbase-docker.git</developerConnection>
         <url>https://github.com/geomesa/hbase-docker</url>
-        <tag>1.1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
