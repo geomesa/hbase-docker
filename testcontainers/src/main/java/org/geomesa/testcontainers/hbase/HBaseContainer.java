@@ -8,6 +8,7 @@
 
 package org.geomesa.testcontainers.hbase;
 
+import org.geomesa.testcontainers.AccumuloContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.BindMode;
@@ -34,12 +35,29 @@ public class HBaseContainer
       extends GenericContainer<HBaseContainer> {
 
     static final DockerImageName DEFAULT_IMAGE =
-            DockerImageName.parse("ghcr.io/geomesa/hbase-docker").withTag("2.6.2-jdk17");
+            DockerImageName.parse("ghcr.io/geomesa/hbase-docker")
+                    .withTag(System.getProperty("hbase.docker.tag", "2.6.3-jdk17"));
 
     private static final Logger logger = LoggerFactory.getLogger(HBaseContainer.class);
 
     private static final List<String> ports =
             List.of("HBASE_MASTER_PORT", "HBASE_REGIONSERVER_PORT", "NAMENODE_PORT", "ZOOKEEPER_PORT");
+
+    private static HBaseContainer INSTANCE;
+
+    public static synchronized HBaseContainer getInstance() {
+        if (INSTANCE == null) {
+            logger.info("Starting HBase container");
+            INSTANCE = new HBaseContainer().withGeoMesaDistributedRuntime();
+            INSTANCE.start();
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                logger.info("Stopping HBase container");
+                INSTANCE.stop();
+                logger.info("Stopped HBase container");
+            }));
+        }
+        return INSTANCE;
+    }
 
     public HBaseContainer() {
         this(DEFAULT_IMAGE);
