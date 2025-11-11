@@ -15,7 +15,6 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.OutputFrame;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.shaded.org.apache.commons.io.IOUtils;
 import org.testcontainers.utility.DockerImageName;
 
 import java.io.File;
@@ -83,7 +82,7 @@ public class HBaseContainer
                             .onExit()
                             .thenApply((p) -> {
                                 try (InputStream is = p.getInputStream()) {
-                                    return IOUtils.toString(is, StandardCharsets.UTF_8).trim();
+                                    return new String(is.readAllBytes(), StandardCharsets.UTF_8).trim();
                                 } catch (IOException e) {
                                     logger.error("Error reading hostname:", e);
                                     return null;
@@ -139,7 +138,7 @@ public class HBaseContainer
      * @return contents of the hbase-site.xml
      */
     public String getHBaseSiteXml() {
-        return copyFileFromContainer("/opt/hbase/conf/hbase-site.xml", (is) -> IOUtils.toString(is, StandardCharsets.UTF_8));
+        return copyFileFromContainer("/opt/hbase/conf/hbase-site.xml", (is) -> new String(is.readAllBytes(), StandardCharsets.UTF_8));
     }
 
     private static int getFreePort() {
